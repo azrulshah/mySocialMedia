@@ -9,7 +9,7 @@ use Auth;
 class PostController extends Controller
 {
     function index() {
-        $posts = Post::latest()->get();
+        $posts = Post::latest()->paginate(10);
         return view('posts.index',compact('posts'));
     }
 

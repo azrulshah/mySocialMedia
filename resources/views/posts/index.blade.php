@@ -10,15 +10,18 @@
         </div>
         <div class="col-md-8">
             @foreach ($posts as $post)
-                    <div class="card mt-3">
-                        <div class="card-body">
-                            <p class="card-text">
-                                {{$post->content}} <br>
-                                <a href="/post/{{Crypt::encrypt($post->id)}}" class="btn btn-primary">View Detail</a>
-                            </p>
-                        </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <p class="card-text">
+                            {{$post->content}} <br>
+                            <a href="/post/{{Crypt::encrypt($post->id)}}" class="btn btn-primary">View Detail</a>
+                        </p>
                     </div>
-                @endforeach
+                </div>
+            @endforeach
+        </div>
+        <div class="col-md-8 mt-3">
+            <center>{{$posts->links()}}</center>
         </div>
     </div>
 </div>
