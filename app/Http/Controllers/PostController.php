@@ -44,4 +44,11 @@ class PostController extends Controller
         flash('Record updated successfully!')->success()->important();
         return redirect()->route('post.index');
     }
+
+    function destroy($id, Request $request) {
+        Post::find($id)->delete();
+
+        flash('Post deleted successfully')->error()->important();
+        return redirect()->back();
+    }
 }

@@ -15,7 +15,12 @@
                         <p class="card-text">
                             {{$post->content}} <br>
                             <a href="/post/{{Crypt::encrypt($post->id)}}" class="btn btn-primary">View Detail</a>
-                            <a href="/post/{{Crypt::encrypt($post->id)}}/edit" class="btn btn-warning">Edit Post</a>
+                            <a href="/post/{{Crypt::encrypt($post->id)}}/edit" class="btn btn-warning">Edit</a>
+                            <form action="{{route('post.destroy', $post->id)}}" method="POST" onsubmit="return confirm('Are you sure you want to remove this?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"  type="button" class="btn btn-danger deleteBtn">Delete</button>
+                            </form>
                         </p>
                     </div>
                 </div>
