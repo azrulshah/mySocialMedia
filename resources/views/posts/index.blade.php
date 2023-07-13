@@ -15,6 +15,7 @@
                         <p class="card-text">
                             {{$post->content}} <br>
                             <a href="/post/{{Crypt::encrypt($post->id)}}" class="btn btn-primary">View Detail</a>
+                            <a href="/post/{{Crypt::encrypt($post->id)}}/edit" class="btn btn-warning">Edit Post</a>
                         </p>
                     </div>
                 </div>
