@@ -24,7 +24,20 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->user_id = Auth::user()->id;
         $post->save();
-
+        flash('Record created successfully!')->success()->important();
         return redirect()->back();
+    }
+
+    function edit($id) {
+        $post = Post::find(Crypt::decrypt($id));
+        return view('posts.edit',compact('post'));
+    }
+
+    function update($id, Request $reqeust){
+        $post = Post::find(Crypt::decrypt($id));
+        $post->content = $request->content();
+        $post->save();
+        flash('Record updated successfully!')->success()->important();
+        return redirect()->route('post.index');
     }
 }
