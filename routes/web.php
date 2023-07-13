@@ -28,6 +28,7 @@ Route::get('/test', function () {
 
 Route::get('post', [PostController::class, 'index'])->middleware('auth');
 Route::get('post/{id}', [PostController::class, 'show'])->middleware('auth');
+Route::post('post', [PostController::class, 'store'])->name('post.store')->middleware('auth');
 
 Auth::routes();
 

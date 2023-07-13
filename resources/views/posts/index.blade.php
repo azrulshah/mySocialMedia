@@ -34,13 +34,19 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
             </div>
+            {!! Form::open(['method' => 'POST', 'route' => 'post.store']) !!}
             <div class="modal-body">
-                Body
+                <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
+                    {!! Form::label('content', 'What\'s on your mind?') !!}
+                    {!! Form::textarea('content', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    <small class="text-danger">{{ $errors->first('content') }}</small>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>
