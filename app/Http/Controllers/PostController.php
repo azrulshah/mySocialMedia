@@ -33,9 +33,13 @@ class PostController extends Controller
         return view('posts.edit',compact('post'));
     }
 
-    function update($id, Request $reqeust){
+    function update($id, Request $request){
+        $request->validate([
+            'content'=>'required|min:50|max:200'
+        ]);
+
         $post = Post::find(Crypt::decrypt($id));
-        $post->content = $request->content();
+        $post->content = $request->content;
         $post->save();
         flash('Record updated successfully!')->success()->important();
         return redirect()->route('post.index');

@@ -26,7 +26,7 @@ Route::get('/test', function () {
     echo 'Dari route test';
 });
 
-Route::get('post', [PostController::class, 'index'])->middleware('auth');
+Route::get('post', [PostController::class, 'index'])->name('post.index')->middleware('auth');
 Route::get('post/{id}', [PostController::class, 'show'])->middleware('auth');
 Route::get('post/{id}/edit', [PostController::class, 'edit'])->name('post.edit')->middleware('auth');
 Route::put('post/{id}', [PostController::class, 'update'])->name('post.update')->middleware('auth');

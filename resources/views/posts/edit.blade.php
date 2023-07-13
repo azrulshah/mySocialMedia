@@ -8,8 +8,14 @@
                 <div class="card-header">Post Detail</div>
 
                 <div class="card-body">
-                   {!! Form::model($post, ['route' => ['post.update', $post->id], 'method' => 'PUT']) !!}
-
+                   {!! Form::model($post, ['route' => ['post.update', Crypt::encrypt($post->id)], 'method' => 'PUT']) !!}
+                    {{-- @if ($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                            @foreach ($errors->all() as $error)
+                                {{$error->messages->first()}}
+                            @endforeach
+                        </div>
+                    @endif --}}
                       <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
                           {!! Form::label('content', 'Content') !!}
                           {!! Form::textarea('content', null, ['class' => 'form-control', 'required' => 'required']) !!}
