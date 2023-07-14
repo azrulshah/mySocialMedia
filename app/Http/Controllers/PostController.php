@@ -15,6 +15,7 @@ class PostController extends Controller
 
     function show($id) {
         $post = Post::find(Crypt::decrypt($id));
+        // $comments = Comment::where('post_id',$post->id)->get();
         return view('posts.show',compact('post'));
     }
 

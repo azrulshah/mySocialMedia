@@ -12,6 +12,19 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-8">
+            <h3 class="mt-3">Comments:</h3>
+            @foreach ($post->comments as $comment)
+            <div class="card mt-2">
+                <div class="card-body">
+                    <p class="card-text">
+                        <strong>{{$comment->user->name}}</strong> {{\Carbon\Carbon::now()->diffForHumans(\Carbon\Carbon::parse($comment->created_at))}}<br>
+                        {{$comment->content}}
+                    </p>
+                </div>
+            </div>
+            @endforeach
+        </div>
     </div>
 </div>
 @endsection
