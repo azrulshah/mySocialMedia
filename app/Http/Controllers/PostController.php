@@ -9,7 +9,10 @@ use Auth;
 class PostController extends Controller
 {
     function index() {
-        $posts = Post::with('user')->latest()->paginate(10);
+        $posts = Post::with(['user'=>function($q){
+            $q->withCount('posts');
+        }])->withCount('comments')->latest()->paginate(10);
+        // dd($posts);
         return view('posts.index',compact('posts'));
     }
 

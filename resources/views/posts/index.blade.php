@@ -13,7 +13,7 @@
                 <div class="card mt-3">
                     <div class="card-body">
                         <p class="card-text">
-                            <strong>{{$post->user->name}} ({{$post->user->posts->count()}})</strong>  {{\Carbon\Carbon::parse($post->created_at)->diffForHumans(\Carbon\Carbon::now())}} <br>
+                            <strong>{{$post->user->name}} ({{$post->user->posts_count}})</strong>  {{\Carbon\Carbon::parse($post->created_at)->diffForHumans(\Carbon\Carbon::now())}} <br>
                             {{$post->content}} <br>
 
                             <form action="{{route('post.destroy', $post->id)}}" method="POST" onsubmit="return confirm('Are you sure you want to remove this?')">
@@ -23,6 +23,8 @@
                                 <a href="/post/{{Crypt::encrypt($post->id)}}/edit" class="btn btn-warning">Edit</a>
                                 <button type="submit"  type="button" class="btn btn-danger deleteBtn">Delete</button>
                             </form>
+                            <br>
+                            {{$post->comments_count}} Comment(s).
                         </p>
                     </div>
                 </div>
