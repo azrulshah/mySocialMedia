@@ -20,11 +20,23 @@
                                 @csrf
                                 @method('DELETE')
                                 <a href="/post/{{Crypt::encrypt($post->id)}}" class="btn btn-primary">View Detail</a>
+                                @if (Auth::user()->id == $post->user_id)
                                 <a href="/post/{{Crypt::encrypt($post->id)}}/edit" class="btn btn-warning">Edit</a>
                                 <button type="submit"  type="button" class="btn btn-danger deleteBtn">Delete</button>
+                                @endif
                             </form>
                             <br>
-                            {{$post->comments_count}} Comment(s).
+                            {{-- @if ($post->comments->first()) --}}
+                            <h4 class="mt-3">Comments</h4>
+                            {{-- @endif --}}
+                            @forelse ($post->comments as $comment)
+                            <hr>
+                            <strong>{{$comment->user->name}}</strong> <br>
+                            {{$comment->content}}
+                            @empty
+                             <p class="text-muted">No comment found in this post</p>
+                            @endforelse
+                            {{-- {{$post->comments_count}} Comment(s). --}}
                         </p>
                     </div>
                 </div>

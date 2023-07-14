@@ -11,13 +11,15 @@ class PostController extends Controller
     function index() {
         $posts = Post::with(['user'=>function($q){
             $q->withCount('posts');
-        }])->withCount('comments')->latest()->paginate(10);
-        // dd($posts);
+        }])->with('comments')->latest()->paginate(30);
+        // dd($posts->count());
         return view('posts.index',compact('posts'));
     }
 
     function show($id) {
-        $post = Post::with('comments.user')->find(Crypt::decrypt($id));
+        $post = Post::with(['comments'=>function($query){
+            $query->where('id','>=',500);
+        },'comments.user'])->find(Crypt::decrypt($id));
         return view('posts.show',compact('post'));
     }
 
@@ -33,6 +35,10 @@ class PostController extends Controller
 
     function edit($id) {
         $post = Post::find(Crypt::decrypt($id));
+        if (Auth::user()->id != $post->user_id) {
+            flash('You are not authorized to do such action')->error()->important();
+            return redirect()->route('post.index');
+        }
         return view('posts.edit',compact('post'));
     }
 
@@ -49,8 +55,12 @@ class PostController extends Controller
     }
 
     function destroy($id, Request $request) {
-        Post::find($id)->delete();
-
+        $post = Post::find($id);
+        if (Auth::user()->id != $post->user_id) {
+            flash('You are not authorized to do such action')->error()->important();
+            return redirect()->route('post.index');
+        }
+        $post->delete();
         flash('Post deleted successfully')->error()->important();
         return redirect()->back();
     }
