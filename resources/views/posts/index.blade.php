@@ -13,6 +13,7 @@
                 <div class="card mt-3">
                     <div class="card-body">
                         <p class="card-text">
+                            <strong>{{$post->user->name}} ({{$post->user->posts->count()}})</strong>  {{\Carbon\Carbon::parse($post->created_at)->diffForHumans(\Carbon\Carbon::now())}} <br>
                             {{$post->content}} <br>
 
                             <form action="{{route('post.destroy', $post->id)}}" method="POST" onsubmit="return confirm('Are you sure you want to remove this?')">

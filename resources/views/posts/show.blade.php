@@ -18,7 +18,7 @@
             <div class="card mt-2">
                 <div class="card-body">
                     <p class="card-text">
-                        <strong>{{$comment->user->name}}</strong> {{\Carbon\Carbon::now()->diffForHumans(\Carbon\Carbon::parse($comment->created_at))}}<br>
+                        <strong>{{$comment->user->name}}</strong> {{\Carbon\Carbon::parse($comment->created_at)->diffForHumans(\Carbon\Carbon::now())}}<br>
                         {{$comment->content}}
                     </p>
                 </div>

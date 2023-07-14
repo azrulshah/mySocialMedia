@@ -9,13 +9,12 @@ use Auth;
 class PostController extends Controller
 {
     function index() {
-        $posts = Post::latest()->paginate(10);
+        $posts = Post::with('user')->latest()->paginate(10);
         return view('posts.index',compact('posts'));
     }
 
     function show($id) {
-        $post = Post::find(Crypt::decrypt($id));
-        // $comments = Comment::where('post_id',$post->id)->get();
+        $post = Post::with('comments.user')->find(Crypt::decrypt($id));
         return view('posts.show',compact('post'));
     }
 
