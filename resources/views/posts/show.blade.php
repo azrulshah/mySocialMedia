@@ -14,6 +14,17 @@
         </div>
         <div class="col-md-8">
             <h3 class="mt-3">Comments:</h3>
+            {!! Form::open(['method' => 'POST', 'route' => 'comment.store']) !!}
+                {!! Form::hidden('post_id', $post->id, ['id'=>'post_id']) !!}
+                <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
+                    {!! Form::label('content', 'Comment:') !!}
+                    {!! Form::textarea('content', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    <small class="text-danger">{{ $errors->first('content') }}</small>
+                </div>
+                <div class="btn-group ">
+                    {!! Form::submit("Post", ['class' => 'btn btn-primary ']) !!}
+                </div>
+            {!! Form::close() !!}
             @foreach ($post->comments as $comment)
             <div class="card mt-2">
                 <div class="card-body">

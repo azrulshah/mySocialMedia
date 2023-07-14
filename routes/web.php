@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +25,8 @@ Route::get('/', function () {
 Route::get('/test', function () {
     echo 'Dari route test';
 });
+
+Route::post('comment', [CommentController::class, 'store'])->name('comment.store')->middleware('auth');
 
 Route::get('post', [PostController::class, 'index'])->name('post.index')->middleware('auth');
 Route::get('post/{id}', [PostController::class, 'show'])->middleware('auth');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Comment;
 use Crypt;
 use Auth;
 class PostController extends Controller
@@ -24,11 +25,24 @@ class PostController extends Controller
     }
 
     function store(Request $request) {
-        // dd($request);
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = Auth::user()->id;
         $post->save();
+
+        $preComment = [
+            'Terbaik', 'Good', 'Well done', 'This is a good article'
+        ];
+
+        for ($i=0; $i < 20; $i++) {
+            $post->comments()->save(
+                new Comment([
+                    'content'=>$preComment[rand(0,3)],
+                    'user_id'=>rand(1,50)
+                ])
+            );
+        }
+
         flash('Record created successfully!')->success()->important();
         return redirect()->back();
     }
@@ -36,8 +50,9 @@ class PostController extends Controller
     function edit($id) {
         $post = Post::find(Crypt::decrypt($id));
         if (Auth::user()->id != $post->user_id) {
-            flash('You are not authorized to do such action')->error()->important();
-            return redirect()->route('post.index');
+            // flash('You are not authorized to do such action')->error()->important();
+            // return redirect()->route('post.index');
+            abort(403);
         }
         return view('posts.edit',compact('post'));
     }
