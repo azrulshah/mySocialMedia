@@ -18,7 +18,7 @@ class CommentFactory extends Factory
     {
         return [
             'content'=>fake()->sentence(rand(5,10)),
-            'user_id'=>fake()->numberBetween(390,589),
+            'user_id'=>fake()->numberBetween(1,50),
             'post_id'=>fake()->numberBetween(1,500)
         ];
     }

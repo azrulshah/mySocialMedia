@@ -18,7 +18,7 @@ class PostFactory extends Factory
     {
         return [
             'content'=>fake()->paragraph(5),
-            'user_id'=>fake()->numberBetween(390,420)
+            'user_id'=>fake()->numberBetween(1,50)
         ];
     }
 }
